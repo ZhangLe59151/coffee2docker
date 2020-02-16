@@ -1,9 +1,10 @@
 FROM ubuntu:16.04
 MAINTAINER ZhangLe <zhanglenus@gmail.com>
 LABEL Description="add python3 from ubuntu:16.04" Version="1.0"
-RUN sudo apt-get update
-RUN sudo apt-get install -y python
-RUN sudo apt-get install -y --no-install-recommends \
+RUN su
+RUN apt-get update
+RUN apt-get install -y python
+RUN apt-get install -y --no-install-recommends \
       build-essential \
       git \
       libgoogle-glog-dev \
@@ -20,7 +21,7 @@ RUN sudo apt-get install -y --no-install-recommends \
       protobuf-compiler \
       python-dev \
       python-pip                          
-RUN sudo pip install --user \
+RUN pip install --user \
       future \
       numpy \
       protobuf \
