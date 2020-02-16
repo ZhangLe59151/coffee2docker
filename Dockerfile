@@ -29,5 +29,6 @@ RUN pip3 install numpy \
   scikit-image
 RUN pip3 install jupyter
 RUN pip3 install matplotlib
+RUN pip3 install tensorflow
 #  tensorflow
 RUN git clone https://github.com/matterport/Mask_RCNN.git
