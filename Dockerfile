@@ -30,5 +30,5 @@ RUN pip3 install numpy \
 RUN pip3 install jupyter
 RUN pip3 install matplotlib
 RUN pip3 install tensorflow
-#  tensorflow
-RUN git clone https://github.com/matterport/Mask_RCNN.git
+RUN pip3 install keras
+RUN pip3 install imgaug
