@@ -26,8 +26,8 @@ RUN pip3 install --upgrade pip
 RUN pip install --upgrade pip                  
 RUN pip3 install numpy \
   opencv-python \
-  jupyter \
-  matplotlib \
   scikit-image
+RUN pip3 install jupyter
+RUN pip3 install matplotlib
 #  tensorflow
 RUN git clone https://github.com/matterport/Mask_RCNN.git
