@@ -20,10 +20,14 @@ RUN apt-get install -y --no-install-recommends build-essential \
   openmpi-doc \
   protobuf-compiler \
   python-dev \
-  python3-pip
-RUN pip3 install --upgrade pip                      
-RUN pip3 install numpy
-RUN pip3 install opencv-python
-# RUN sudo apt-get install -y --no-install-recommends \
-#      libgflags-dev \
-#      cmake
+  python3-pip \
+  python-pip
+RUN pip3 install --upgrade pip    
+RUN pip install --upgrade pip                  
+RUN pip3 install numpy \
+  opencv-python \
+  jupyter \
+  matplotlib \
+  scikit-image
+#  tensorflow
+RUN git clone https://github.com/matterport/Mask_RCNN.git
