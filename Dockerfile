@@ -20,15 +20,15 @@ RUN apt-get install -y --no-install-recommends \
       openmpi-doc \
       protobuf-compiler \
       python-dev \
-      python-pip  
-RUN pip install --upgrade pip\                        
+      python-pip \ 
+RUN pip install --upgrade pip \                        
 RUN pip install --user \
       future \
       numpy \
       protobuf \
       typing \
       hypothesis
-RUN pip install opencv-python\
+RUN pip install opencv-python \
 RUN sudo apt-get install -y --no-install-recommends \
       libgflags-dev \
       cmake
