@@ -4,8 +4,11 @@
 import tensorflow as tf
 import numpy as np
 from PIL import Image
+import IPython.display as display
 import os
+from matplotlib import pyplot as plt
 
+tf.compat.v1.enable_eager_execution()
 cwd = os.getcwd()
 root = cwd
 raw_image_dataset = tf.data.TFRecordDataset('IMG_0317.tfrecords')
