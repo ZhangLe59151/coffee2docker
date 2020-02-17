@@ -62,3 +62,5 @@ parsed_image_dataset = raw_image_dataset.map(_parse_image_function)
 for image_features in parsed_image_dataset:
   image_raw = image_features['image_raw'].numpy()
   display.display(display.Image(data=image_raw))
+  height = image_features['height']
+  width = image_features['width']
