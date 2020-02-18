@@ -11,15 +11,7 @@ from matplotlib import pyplot as plt
 tf.compat.v1.enable_eager_execution()
 cwd = os.getcwd()
 root = cwd
-raw_image_dataset = tf.data.TFRecordDataset('IMG_0317.tfrecords')
-
-image_labels = {
-  'clothes': 0,
-  'pants': 1,
-}
-
-image_string = open(cwd + "/IMG_0317.png", 'rb').read()
-label = 0
+raw_image_dataset = tf.data.TFRecordDataset('images.tfrecords')
 
 def _bytes_feature(value):
   """Returns a bytes_list from a string / byte."""
@@ -44,7 +36,7 @@ image_feature_description = {
 }
 
 def image_example(image_string, label):
-  image_shape = tf.image.decode_png(image_string).shape
+  image_shape = tf.image.decode_jpge(image_string).shape
   feature = {
     'height': _int64_feature(image_shape[0]),
     'width': _int64_feature(image_shape[1]),
@@ -64,3 +56,5 @@ for image_features in parsed_image_dataset:
   display.display(display.Image(data=image_raw))
   height = image_features['height']
   width = image_features['width']
+  label = image_features['label']
+  image = image_features['image_raw']

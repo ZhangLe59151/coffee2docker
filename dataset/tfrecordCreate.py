@@ -12,11 +12,16 @@ root = cwd
 
 # label include filename and label
 image_labels = {
-  'IMG_0317.png': 0,
+  'IMG_0312.jpg': 0,
+  'IMG_0313.jpg': 1,
+  'IMG_0314.jpg': 0,
+  'IMG_0315.jpg': 1,
+  'IMG_0317.jpg': 0,
+  'IMG_0318.jpg': 1,
+  'IMG_0326.jpg': 0,
+  'IMG_0327.jpg': 1,
+  'IMG_0329.jpg': 0
 }
-
-image_string = tf.io.read_file(cwd + '/IMG_0317.png')
-label = 0
 
 def _bytes_feature(value):
   """Returns a bytes_list from a string / byte."""
@@ -41,8 +46,8 @@ image_feature_description = {
 }
 
 def image_example(image_string, label):
-  image_shape = tf.image.decode_png(image_string).shape
-  print(image_shape)
+  image_shape = tf.image.decode_jpeg(image_string).shape
+  # print(image_shape)
   feature = {
     'height': _int64_feature(image_shape[0]),
     'width': _int64_feature(image_shape[1]),
@@ -59,9 +64,9 @@ for line in str(image_example(image_string, label)).split('\n')[:15]:
 print('...')
 '''
 
-record_file = 'IMG_0317.tfrecords'
+record_file = 'images.tfrecords'
 with tf.io.TFRecordWriter(record_file) as writer:
   for filename, label in image_labels.items():
-    image_string = open(filename, 'rb').read()
+    image_string = open('data/' + filename, 'rb').read()
     tf_example = image_example(image_string, label)
     writer.write(tf_example.SerializeToString())
