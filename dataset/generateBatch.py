@@ -1,12 +1,13 @@
 # -- Created by ZhangLe --#
 # -- Created on 2020-02-18 --#
 
-import tensorflow as tf 
-from tfrecordCreate import image_feature_description
+import tensorflow as tf
+import os
 
 #tf.compat.v1.enable_eager_execution()
 sess = tf.compat.v1.Session()
-filename = 'images.tfrecords'
+base_root = '/Users/zhangle/Documents/IS/coffee2docker/dataset/'
+filename = base_root + 'images.tfrecords'
 # dataset = tf.data.TFRecordDataset(filenames = [filename])
 
 num_workers = 1
@@ -14,6 +15,14 @@ worker_index = 0
 num_epochs = 1
 shuffle_buffer_size = 1
 num_map_threads = 2
+
+image_feature_description = {
+  'height': tf.io.FixedLenFeature([], tf.int64),
+  'width': tf.io.FixedLenFeature([], tf.int64),
+  'depth': tf.io.FixedLenFeature([], tf.int64),
+  'label': tf.io.FixedLenFeature([], tf.int64),
+  'image_raw': tf.io.FixedLenFeature([], tf.string),
+}
 
 def getShape(example_photo):
   parsed_features = tf.io.parse_single_example(example_photo, image_feature_description)
@@ -44,7 +53,6 @@ trLabel = []
 trData = []
 for item, label in dataset:
   # print(item.numpy())
-  trData.append(item.numpy())
-  trLabel.append(label.numpy())
-
+  trData.append(item)
+  trLabel.append(label)
 
