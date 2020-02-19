@@ -5,7 +5,7 @@ import tensorflow as tf
 from tensorflow import keras
 import sys
 sys.path.append('../')
-from dataset.generateBatch import trData, trLabel
+from dataset.generateBatch import dimage, dlabel
 
 base_root = '/Users/zhangle/Documents/IS/coffee2docker/model/'
 
@@ -17,7 +17,7 @@ outputs = tf.keras.layers.Dense(5, activation=tf.nn.softmax)(x)
 def create_model():
   model = tf.keras.models.Sequential([
     keras.layers.Conv2D(20, (5, 5), input_shape=(4032, 3024, 3), activation='relu'),
-    #keras.layers.Dense(512, activation='relu', input_shape=(4032, 3024, 3)),
+    # keras.layers.Dense(512, activation='relu', input_shape=(4032, 3024, 3)),
     keras.layers.Dropout(0.2),
     keras.layers.Dense(10)
   ])
@@ -36,6 +36,10 @@ cp_callback = tf.keras.callbacks.ModelCheckpoint(filepath=checkpoint_path,
   verbose=1)
 
 # Train the model with the new callback
+print(dimage)
+print(dlabel)
+trData = dimage
+trLabel = dlabel
 model.fit(trData, 
   trLabel,  
   epochs=10,

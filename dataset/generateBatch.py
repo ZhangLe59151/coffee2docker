@@ -6,8 +6,8 @@ import os
 
 tf.compat.v1.enable_eager_execution()
 sess = tf.compat.v1.Session()
-base_root = '/Users/zhangle/Documents/TableDetect/coffee2docker/dataset/'
-# base_root = '/Users/zhangle/Documents/IS/coffee2docker/dataset/'
+# base_root = '/Users/zhangle/Documents/TableDetect/coffee2docker/dataset/'
+base_root = '/Users/zhangle/Documents/IS/coffee2docker/dataset/'
 filename = 'images.tfrecords'
 # dataset = tf.data.TFRecordDataset(filenames = [filename])
 
@@ -16,7 +16,7 @@ worker_index = 0
 num_epochs = 10
 shuffle_buffer_size = 1
 num_map_threads = 2
-batch_size = 32
+batch_size = 1
 
 image_feature_description = {
   'height': tf.io.FixedLenFeature([], tf.int64),
@@ -43,21 +43,28 @@ def parser_fn(example_photo):
   width = 3024
   image = tf.reshape(images, [height, width, 3])
   label = tf.cast(parsed_features['label'], tf.int64)
-  return image, label
+  return image
+
+def parser_fn_label(example_photo):
+  parsed_features = tf.io.parse_single_example(example_photo, image_feature_description)
+  label = tf.cast(parsed_features['label'], tf.int64)
+  return label
 
 d = tf.data.TFRecordDataset(base_root + filename)
 d = d.shard(num_workers, worker_index)
 d = d.repeat(num_epochs)
 d = d.shuffle(shuffle_buffer_size)
-dataset = d.map(parser_fn, num_parallel_calls=num_map_threads)
-dataset = dataset.batch(batch_size, drop_remainder=True)
-print(dataset)
+dimage = d.map(parser_fn, num_parallel_calls=num_map_threads)
+dlabel = d.map(parser_fn_label, num_parallel_calls=num_map_threads)
+dimage = dimage.batch(batch_size, drop_remainder=True)
+print(dimage)
+print(dlabel)
 
+'''
 trLabel = []
 trData = []
 for item, label in dataset:
   #print(item.numpy())
   trData.append(item)
-  print(label.numpy()[-1])
-  trLabel.append(label.numpy()[-1])
-
+  trLabel.append(label.numpy()[0])
+'''
