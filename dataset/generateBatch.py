@@ -58,5 +58,6 @@ trData = []
 for item, label in dataset:
   #print(item.numpy())
   trData.append(item)
-  trLabel.append(label.numpy())
+  print(label.numpy()[-1])
+  trLabel.append(label.numpy()[-1])
 
