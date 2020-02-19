@@ -60,11 +60,11 @@ dimage = dimage.batch(batch_size, drop_remainder=True)
 print(dimage)
 print(dlabel)
 
-'''
+
 trLabel = []
 trData = []
-for item, label in dataset:
+for item in dimage:
   #print(item.numpy())
   trData.append(item)
-  trLabel.append(label.numpy()[0])
+'''
 '''

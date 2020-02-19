@@ -36,7 +36,6 @@ cp_callback = tf.keras.callbacks.ModelCheckpoint(filepath=checkpoint_path,
   verbose=1)
 
 # Train the model with the new callback
-print(dimage)
 print(dlabel)
 trData = dimage
 trLabel = dlabel
