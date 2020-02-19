@@ -12,7 +12,7 @@ base_root = '/Users/zhangle/Documents/IS/coffee2docker/model/'
 inputs = tf.keras.Input(shape=(4032, 3024, 3))
 x = tf.keras.layers.Dense(4, activation=tf.nn.relu)(inputs)
 outputs = tf.keras.layers.Dense(5, activation=tf.nn.softmax)(x)
-model = tf.keras.Model(inputs=inputs, outputs=outputs)
+# model = tf.keras.Model(inputs=inputs, outputs=outputs)
 
 def create_model():
   model = tf.keras.models.Sequential([
