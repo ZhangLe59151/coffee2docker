@@ -8,8 +8,8 @@ sys.path.append('../')
 from dataset.generateBatch import dataset
 
 
-# base_root = '/Users/zhangle/Documents/IS/coffee2docker/model/'
-base_root = '/Users/zhangle/Documents/TableDetect/coffee2docker/model/'
+base_root = '/Users/zhangle/Documents/IS/coffee2docker/model/'
+# base_root = '/Users/zhangle/Documents/TableDetect/coffee2docker/model/'
 
 inputs = tf.keras.Input(shape=(4032, 3024, 1))
 x = tf.keras.layers.Dense(4, activation=tf.nn.relu)(inputs)
@@ -39,13 +39,35 @@ model.summary()
 checkpoint_path = base_root + "cp.ckpt"
 # Create a callback that saves the model's weights
 cp_callback = tf.keras.callbacks.ModelCheckpoint(filepath=checkpoint_path, 
-  save_weights_only=True, 
+  save_weights_only=False, 
   verbose=1)
 
 # Train the model with the new callback
 model.fit(x=dataset, y=None, epochs=10,
   validation_data=dataset,
   callbacks=[cp_callback])  # Pass callback to training
+
+# save the model
+model.save(
+  filepath = base_root,
+  overwrite=True,
+  include_optimizer=True,
+  save_format=None,
+  signatures=None,
+  options=None
+)
+
+# Predict
+model.predict(
+  x=dataset,
+  batch_size=None,
+  verbose=0,
+  steps=None,
+  callbacks=None,
+  max_queue_size=10,
+  workers=1,
+  use_multiprocessing=False
+)
 
 '''
 model.fit(

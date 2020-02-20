@@ -6,8 +6,8 @@ import os
 
 tf.compat.v1.enable_eager_execution()
 sess = tf.compat.v1.Session()
-base_root = '/Users/zhangle/Documents/TableDetect/coffee2docker/dataset/'
-# base_root = '/Users/zhangle/Documents/IS/coffee2docker/dataset/'
+# base_root = '/Users/zhangle/Documents/TableDetect/coffee2docker/dataset/'
+base_root = '/Users/zhangle/Documents/IS/coffee2docker/dataset/'
 filename = 'images.tfrecords'
 # dataset = tf.data.TFRecordDataset(filenames = [filename])
 
