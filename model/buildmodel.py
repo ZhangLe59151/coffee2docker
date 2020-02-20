@@ -58,7 +58,7 @@ model.save(
 )
 
 # Predict
-model.predict(
+a = model.predict(
   x=dataset,
   batch_size=None,
   verbose=0,
@@ -68,6 +68,8 @@ model.predict(
   workers=1,
   use_multiprocessing=False
 )
+
+print(a)
 
 '''
 model.fit(
