@@ -57,16 +57,15 @@ d = tf.data.TFRecordDataset(base_root + filename)
 d = d.shard(num_workers, worker_index)
 d = d.repeat(num_epochs)
 d = d.shuffle(shuffle_buffer_size)
-
 # dimage = d.map(parser_fn, num_parallel_calls=num_map_threads)
 # dlabel = d.map(parser_fn_label, num_parallel_calls=num_map_threads)
 # dimage = dimage.batch(batch_size, drop_remainder=True)
 
-trLabel = []
-trData = []
-for item in dimage:
+#trLabel = []
+#trData = []
+#for item in dimage:
   #print(item.numpy())
-  trData.append(item)
+  #trData.append(item)
 
 
 def parser_fn_all(example_photo):
@@ -78,10 +77,10 @@ def parser_fn_all(example_photo):
   height = 4032
   widths = parsed_features['width']
   width = 3024
-  image = tf.reshape(images, [height, width])
+  image = tf.reshape(images, [height, width, 1])
   label = tf.cast(parsed_features['label'], tf.int64)
-  return image, label
+  return images, label
 
 dataset = d.map(parser_fn_all, num_parallel_calls=num_map_threads)
-dataset = dataset.batch(batch_size, drop_remainder=True)
+dataset = dataset.batch(batch_size, drop_remainder=False)
 

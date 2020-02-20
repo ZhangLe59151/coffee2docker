@@ -7,6 +7,7 @@ import sys
 sys.path.append('../')
 from dataset.generateBatch import dataset
 
+
 # base_root = '/Users/zhangle/Documents/IS/coffee2docker/model/'
 base_root = '/Users/zhangle/Documents/TableDetect/coffee2docker/model/'
 
@@ -18,13 +19,17 @@ model = tf.keras.Model(inputs=inputs, outputs=outputs)
 
 def create_model():
   model = tf.keras.models.Sequential([
-    keras.layers.Conv2D(20, (5, 5), input_shape=(4032, 3024), activation='relu'),
-    # keras.layers.Dense(512, activation='relu', input_shape=(4032, 3024, 3)),
+    keras.layers.Conv2D(20, (5, 5), input_shape=(4032, 3024, 1), activation='relu'),
+    keras.layers.MaxPool2D(pool_size=(2, 2)),
+    keras.layers.Conv2D(40, (5, 5), activation='relu'),
+    keras.layers.MaxPool2D(pool_size=(2, 2)),
     keras.layers.Dropout(0.2),
-    keras.layers.Dense(10)
+    keras.layers.Flatten(),
+    keras.layers.Dense(128, activation='relu'),
+    keras.layers.Dense(2, activation='softmax')
   ])
   model.compile(optimizer='adam',
-    loss=tf.losses.SparseCategoricalCrossentropy(from_logits=True),
+    loss=tf.losses.SparseCategoricalCrossentropy(from_logits=False),
     metrics=['accuracy'])
   return model
 
