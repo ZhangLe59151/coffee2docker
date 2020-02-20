@@ -5,22 +5,20 @@ import tensorflow as tf
 from tensorflow import keras
 import sys
 sys.path.append('../')
-from dataset.generateBatch import dimage, dlabel, dataset
+from dataset.generateBatch import dataset
 
 # base_root = '/Users/zhangle/Documents/IS/coffee2docker/model/'
 base_root = '/Users/zhangle/Documents/TableDetect/coffee2docker/model/'
 
-inputs = tf.keras.Input(shape=(4032, 3024, 3))
+inputs = tf.keras.Input(shape=(4032, 3024, 1))
 x = tf.keras.layers.Dense(4, activation=tf.nn.relu)(inputs)
 outputs = tf.keras.layers.Dense(5, activation=tf.nn.softmax)(x)
 model = tf.keras.Model(inputs=inputs, outputs=outputs)
-model.compile(optimizer='adam',
-    loss=tf.losses.SparseCategoricalCrossentropy(from_logits=True),
-    metrics=['accuracy'])
+# model.compile(optimizer='adam', loss=tf.losses.SparseCategoricalCrossentropy(from_logits=False), metrics=['accuracy'])
 
 def create_model():
   model = tf.keras.models.Sequential([
-    keras.layers.Conv2D(20, (5, 5), input_shape=(4032, 3024, 3), activation='relu'),
+    keras.layers.Conv2D(20, (5, 5), input_shape=(4032, 3024), activation='relu'),
     # keras.layers.Dense(512, activation='relu', input_shape=(4032, 3024, 3)),
     keras.layers.Dropout(0.2),
     keras.layers.Dense(10)
@@ -30,7 +28,7 @@ def create_model():
     metrics=['accuracy'])
   return model
 
-# model = create_model()
+model = create_model()
 model.summary()
 
 checkpoint_path = base_root + "cp.ckpt"
@@ -40,9 +38,6 @@ cp_callback = tf.keras.callbacks.ModelCheckpoint(filepath=checkpoint_path,
   verbose=1)
 
 # Train the model with the new callback
-print(dlabel)
-trData = dimage
-trLabel = dlabel
 model.fit(x=dataset, y=None, epochs=10,
   validation_data=dataset,
   callbacks=[cp_callback])  # Pass callback to training

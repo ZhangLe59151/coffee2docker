@@ -31,17 +31,19 @@ def getShape(example_photo):
   height = parsed_features['height']
   width = parsed_features['width']
   return height, width
-  
+
+'''  
 def parser_fn(example_photo):
   parsed_features = tf.io.parse_single_example(example_photo, image_feature_description)
   # labels = parsed_features['label']
   # images = parsed_features['image_raw']
   images = tf.image.decode_jpeg(parsed_features['image_raw'])
+  images = tf.image.rgb_to_grayscale(images, name=None)
   heights = parsed_features['height']
   height = 4032
   widths = parsed_features['width']
   width = 3024
-  image = tf.reshape(images, [height, width, 3])
+  image = tf.reshape(images, [height, width, 1])
   label = tf.cast(parsed_features['label'], tf.int64)
   return image
 
@@ -49,18 +51,16 @@ def parser_fn_label(example_photo):
   parsed_features = tf.io.parse_single_example(example_photo, image_feature_description)
   label = tf.cast(parsed_features['label'], tf.int64)
   return label
+'''
 
 d = tf.data.TFRecordDataset(base_root + filename)
 d = d.shard(num_workers, worker_index)
 d = d.repeat(num_epochs)
 d = d.shuffle(shuffle_buffer_size)
 
-dimage = d.map(parser_fn, num_parallel_calls=num_map_threads)
-dlabel = d.map(parser_fn_label, num_parallel_calls=num_map_threads)
-dimage = dimage.batch(batch_size, drop_remainder=True)
-print(dimage)
-print(dlabel)
-
+# dimage = d.map(parser_fn, num_parallel_calls=num_map_threads)
+# dlabel = d.map(parser_fn_label, num_parallel_calls=num_map_threads)
+# dimage = dimage.batch(batch_size, drop_remainder=True)
 
 trLabel = []
 trData = []
@@ -78,7 +78,7 @@ def parser_fn_all(example_photo):
   height = 4032
   widths = parsed_features['width']
   width = 3024
-  image = tf.reshape(images, [height, width, 3])
+  image = tf.reshape(images, [height, width])
   label = tf.cast(parsed_features['label'], tf.int64)
   return image, label
 
