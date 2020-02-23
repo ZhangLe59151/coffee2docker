@@ -20,7 +20,9 @@ image_labels = {
   'IMG_0318.jpg': 1,
   'IMG_0326.jpg': 0,
   'IMG_0327.jpg': 1,
-  'IMG_0329.jpg': 0
+  'IMG_0329.jpg': 0,
+  'IMG_0333.jpg': 0,
+  'IMG_0334.jpg': 1,
 }
 
 def _bytes_feature(value):
