@@ -48,49 +48,12 @@ model.fit(x=dataset, y=None, epochs=10,
   callbacks=[cp_callback])  # Pass callback to training
 
 # save the model
+Model_path = base_root + '/checkpoint'
 model.save(
-  filepath = base_root,
+  filepath = Model_path,
   overwrite=True,
   include_optimizer=True,
   save_format=None,
   signatures=None,
   options=None
 )
-
-# Predict
-a = model.predict(
-  x=dataset,
-  batch_size=None,
-  verbose=0,
-  steps=None,
-  callbacks=None,
-  max_queue_size=10,
-  workers=1,
-  use_multiprocessing=False
-)
-
-print(a)
-
-'''
-model.fit(
-  x=trData,
-  y=trLabel,
-  batch_size=None,
-  epochs=1,
-  verbose=1,
-  callbacks=None,
-  validation_split=0.0,
-  validation_data=None,
-  shuffle=True,
-  class_weight=None,
-  sample_weight=None,
-  initial_epoch=0,
-  steps_per_epoch=None,
-  validation_steps=None,
-  validation_freq=1,
-  max_queue_size=10,
-  workers=1,
-  use_multiprocessing=False)
-
-print(model)
-'''
