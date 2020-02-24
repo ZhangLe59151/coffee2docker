@@ -2,9 +2,13 @@
 # -- Created on 2020-02-20 --#
 
 import tensorflow as tf
+import cv2
+import os
 
 tf.compat.v1.enable_eager_execution()
 
+base_root = '/Users/zhangle/Documents/IS/coffee2docker/dataset/data/'
+'''
 BATCH_SIZE = 1
 NUM_BOXES = 5
 IMAGE_HEIGHT = 256
@@ -23,3 +27,18 @@ output = tf.image.crop_and_resize(image, boxes, box_indices, CROP_SIZE)
 # 
 # 
 # output.shape  #=> (5, 24, 24, 3)
+'''
+
+def Corpimg(filename):
+  pic = cv2.imread('data/' + filename, cv2.IMREAD_GRAYSCALE)
+  height = pic.shape[0]
+  width = pic.shape[1]
+  size = (int(height * 0.3), int(width*0.5))  
+  print(size)
+  shrink = cv2.resize(pic, size, interpolation=cv2.INTER_AREA)
+  cv2.imwrite('traindata/'+filename, shrink)
+
+files = os.listdir(base_root)
+for file in files:
+  Corpimg(file)
+

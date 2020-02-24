@@ -4,6 +4,9 @@
 import tensorflow as tf
 import os
 
+# Just disables the warning, doesn't enable AVX/FMA
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
+
 tf.compat.v1.enable_eager_execution()
 sess = tf.compat.v1.Session()
 # base_root = '/Users/zhangle/Documents/TableDetect/coffee2docker/dataset/'
@@ -16,7 +19,7 @@ worker_index = 0
 num_epochs = 10
 shuffle_buffer_size = 1
 num_map_threads = 2
-batch_size = 32
+batch_size = 16
 
 image_feature_description = {
   'height': tf.io.FixedLenFeature([], tf.int64),
@@ -74,13 +77,14 @@ def parser_fn_all(example_photo):
   # images = parsed_features['image_raw']
   images = tf.image.decode_jpeg(parsed_features['image_raw'])
   heights = parsed_features['height']
-  height = 4032
+  height = 1512
   widths = parsed_features['width']
-  width = 3024
+  width = 1209
+  print(images.shape)
   image = tf.reshape(images, [height, width, 1])
   label = tf.cast(parsed_features['label'], tf.int64)
-  return images, label
+  return image, label
 
-dataset = d.map(parser_fn_all, num_parallel_calls=num_map_threads)
-dataset = dataset.batch(batch_size, drop_remainder=False)
-
+d = d.map(parser_fn_all, num_parallel_calls=num_map_threads)
+dataset = d.batch(batch_size, drop_remainder=False)
+testdataset = d.batch(10, drop_remainder=False)

@@ -4,7 +4,11 @@
 import tensorflow as tf
 import numpy as np
 from PIL import Image
+import cv2
 import os
+
+# Just disables the warning, doesn't enable AVX/FMA
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 tf.compat.v1.enable_eager_execution()
 cwd = os.getcwd()
@@ -49,7 +53,7 @@ image_feature_description = {
 
 def image_example(image_string, label):
   image_shape = tf.image.decode_jpeg(image_string).shape
-  # print(image_shape)
+  print(image_shape)
   feature = {
     'height': _int64_feature(image_shape[0]),
     'width': _int64_feature(image_shape[1]),
@@ -69,6 +73,6 @@ print('...')
 record_file = 'images.tfrecords'
 with tf.io.TFRecordWriter(record_file) as writer:
   for filename, label in image_labels.items():
-    image_string = open('data/' + filename, 'rb').read()
+    image_string = open('traindata/' + filename, 'rb').read()
     tf_example = image_example(image_string, label)
     writer.write(tf_example.SerializeToString())

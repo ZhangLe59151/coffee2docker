@@ -17,7 +17,7 @@ model = tf.keras.models.load_model(checkpoint_path)
 model.summery()
 
 print('load weight path')
-# model.load_weights(checkpoint_path)
+model.load_weights(checkpoint_path)
 
-# loss,acc = model.evaluate(test_images,  test_labels, verbose=2)
-# print("Restored model, accuracy: {:5.2f}%".format(100*acc))
+loss,acc = model.evaluate(test_images,  test_labels, verbose=2)
+print("Restored model, accuracy: {:5.2f}%".format(100*acc))
