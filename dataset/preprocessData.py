@@ -7,7 +7,8 @@ import os
 
 tf.compat.v1.enable_eager_execution()
 
-base_root = '/Users/zhangle/Documents/IS/coffee2docker/dataset/data/'
+base_root = '/Users/zhangle/Documents/IS/coffee2docker/dataset/'
+
 '''
 BATCH_SIZE = 1
 NUM_BOXES = 5
@@ -30,15 +31,15 @@ output = tf.image.crop_and_resize(image, boxes, box_indices, CROP_SIZE)
 '''
 
 def Corpimg(filename):
-  pic = cv2.imread('data/' + filename, cv2.IMREAD_GRAYSCALE)
+  pic = cv2.imread(base_root + 'data/' + filename, cv2.IMREAD_GRAYSCALE)
   height = pic.shape[0]
   width = pic.shape[1]
-  size = (int(height * 0.3), int(width*0.5))  
+  size = (int(height * 0.2), int(width*0.2))  
   print(size)
   shrink = cv2.resize(pic, size, interpolation=cv2.INTER_AREA)
   cv2.imwrite('traindata/'+filename, shrink)
 
-files = os.listdir(base_root)
+files = os.listdir(base_root + 'data/')
 for file in files:
   Corpimg(file)
 
