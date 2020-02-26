@@ -8,3 +8,7 @@ python3 dataset/preprocessData.py
 - step2 Create tfrecord file
 # create tfrecord file
 python3 dataset/tfrecordCreate.py
+
+- step3 Run the model
+# run model and save weights
+python3 model/buildmodel.py

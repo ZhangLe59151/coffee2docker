@@ -77,9 +77,9 @@ def parser_fn_all(example_photo):
   # images = parsed_features['image_raw']
   images = tf.image.decode_jpeg(parsed_features['image_raw'])
   heights = parsed_features['height']
-  height = 1512
+  height = 806
   widths = parsed_features['width']
-  width = 1209
+  width = 604
   print(images.shape)
   image = tf.reshape(images, [height, width, 1])
   label = tf.cast(parsed_features['label'], tf.int64)

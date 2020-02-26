@@ -69,7 +69,7 @@ for line in str(image_example(image_string, label)).split('\n')[:15]:
 print('...')
 '''
 
-record_file = 'images.tfrecords'
+record_file = base_root + 'images.tfrecords'
 with tf.io.TFRecordWriter(record_file) as writer:
   for filename, label in image_labels.items():
     image_string = open(base_root + 'traindata/' + filename, 'rb').read()
