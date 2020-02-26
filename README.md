@@ -5,3 +5,6 @@ build coffee2 docker image
 # resize and transfor image to grey scale
 python3 dataset/preprocessData.py
 
+- step2 Create tfrecord file
+# create tfrecord file
+python3 dataset/tfrecordCreate.py

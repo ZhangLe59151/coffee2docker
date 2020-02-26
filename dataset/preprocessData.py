@@ -34,10 +34,10 @@ def Corpimg(filename):
   pic = cv2.imread(base_root + 'data/' + filename, cv2.IMREAD_GRAYSCALE)
   height = pic.shape[0]
   width = pic.shape[1]
-  size = (int(height * 0.2), int(width*0.2))  
+  size = (int(width * 0.2), int(height*0.2))  
   print(size)
   shrink = cv2.resize(pic, size, interpolation=cv2.INTER_AREA)
-  cv2.imwrite('traindata/'+filename, shrink)
+  cv2.imwrite(base_root + 'traindata/'+filename, shrink)
 
 files = os.listdir(base_root + 'data/')
 for file in files:

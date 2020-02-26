@@ -16,10 +16,10 @@ filename = 'images.tfrecords'
 
 num_workers = 1
 worker_index = 0
-num_epochs = 10
+num_epochs = 100
 shuffle_buffer_size = 1
 num_map_threads = 2
-batch_size = 16
+batch_size = 320
 
 image_feature_description = {
   'height': tf.io.FixedLenFeature([], tf.int64),
@@ -87,4 +87,4 @@ def parser_fn_all(example_photo):
 
 d = d.map(parser_fn_all, num_parallel_calls=num_map_threads)
 dataset = d.batch(batch_size, drop_remainder=False)
-testdataset = d.batch(10, drop_remainder=False)
+testdataset = d.batch(100, drop_remainder=False)

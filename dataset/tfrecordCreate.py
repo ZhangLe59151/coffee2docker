@@ -11,8 +11,7 @@ import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 tf.compat.v1.enable_eager_execution()
-cwd = os.getcwd()
-root = cwd
+base_root = '/Users/zhangle/Documents/IS/coffee2docker/dataset/'
 
 # label include filename and label
 image_labels = {
@@ -73,6 +72,6 @@ print('...')
 record_file = 'images.tfrecords'
 with tf.io.TFRecordWriter(record_file) as writer:
   for filename, label in image_labels.items():
-    image_string = open('traindata/' + filename, 'rb').read()
+    image_string = open(base_root + 'traindata/' + filename, 'rb').read()
     tf_example = image_example(image_string, label)
     writer.write(tf_example.SerializeToString())
