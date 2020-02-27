@@ -7,7 +7,7 @@ from dataset.generateBatch import dataset, testdataset
 base_root = '/Users/zhangle/Documents/IS/coffee2docker/model/'
 # base_root = '/Users/zhangle/Documents/TableDetect/coffee2docker/model/'
 
-checkpoint_path = base_root + "cp.ckpt/"
+checkpoint_path = base_root + "cp.ckpt"
 
 # evaluate
 

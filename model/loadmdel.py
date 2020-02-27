@@ -8,7 +8,7 @@ from tensorflow import keras
 import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
-base_root = '/Users/zhangle/Documents/IS/coffee2docker/'
-checkpoint_path = base_root + "/model/cp.ckpt"
+base_root = '/Users/zhangle/Documents/IS/coffee2docker/model/'
+checkpoint_path = base_root + "cp.ckpt"
 
 print(checkpoint_path)
