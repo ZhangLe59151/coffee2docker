@@ -17,6 +17,8 @@ def create_model():
     keras.layers.MaxPool2D(pool_size=(2, 2)),
     keras.layers.Conv2D(40, (5, 5), activation='relu'),
     keras.layers.MaxPool2D(pool_size=(2, 2)),
+    keras.layers.Conv2D(60, (5, 5), activation='relu'),
+    keras.layers.MaxPool2D(pool_size=(2, 2)),
     keras.layers.Dropout(0.2),
     keras.layers.Flatten(),
     keras.layers.Dense(128, activation='relu'),

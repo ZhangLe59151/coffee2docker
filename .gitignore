@@ -3,7 +3,9 @@ dataset/images.tfrecords
 *.tfrecords
 
 # Package Files #
-dataset/__pycache__
+dataset/__pycache__/*
 
 # model
-
+model/checkpoint
+model/*.index
+model/cp.*

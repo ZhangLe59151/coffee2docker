@@ -11,4 +11,5 @@ python3 dataset/tfrecordCreate.py
 
 - step3 Run the model
 # run model and save weights
-python3 model/buildmodel.py
+cd model/
+python3 buildmodel.py
