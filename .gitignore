@@ -1,5 +1,8 @@
 # images tfrecords
-images.tfrecords
+dataset/images.tfrecords
 
 # Package Files #
 dataset/__pycache__
+
+# model
+
