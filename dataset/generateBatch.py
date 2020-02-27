@@ -87,4 +87,4 @@ def parser_fn_all(example_photo):
 
 d = d.map(parser_fn_all, num_parallel_calls=num_map_threads)
 dataset = d.batch(batch_size, drop_remainder=False)
-testdataset = d.batch(10, drop_remainder=False)
+testdataset = d.batch(16, drop_remainder=False)

@@ -32,7 +32,7 @@ model.summary()
 
 checkpoint_path = base_root + "cp.ckpt"
 
-# model.save_weights(checkpoint_path.format(epoch=10))
+model.save_weights(checkpoint_path.format(epoch=10))
 
 # Create a callback that saves the model's weights
 cp_callback = tf.keras.callbacks.ModelCheckpoint(filepath=checkpoint_path, 

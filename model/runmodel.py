@@ -7,16 +7,13 @@ from dataset.generateBatch import dataset, testdataset
 base_root = '/Users/zhangle/Documents/IS/coffee2docker/model/'
 # base_root = '/Users/zhangle/Documents/TableDetect/coffee2docker/model/'
 
-checkpoint_path = base_root + "cp.ckpt"
+checkpoint_path = base_root + "cp.ckpt/"
 
 # evaluate
-filename = 'IMG_0336.jpg'
-test_images = open('/Users/zhangle/Documents/IS/coffee2docker/dataset/testdata/' + filename, 'rb').read()
-test_labels = 0
 
 def create_model():
   model = tf.keras.models.Sequential([
-    keras.layers.Conv2D(20, (5, 5), input_shape=(1512, 1209, 1), activation='relu'),
+    keras.layers.Conv2D(20, (5, 5), input_shape=(806, 604, 1), activation='relu'),
     keras.layers.MaxPool2D(pool_size=(2, 2)),
     keras.layers.Conv2D(40, (5, 5), activation='relu'),
     keras.layers.MaxPool2D(pool_size=(2, 2)),
