@@ -4,8 +4,8 @@ import sys
 sys.path.append('../')
 from dataset.generateBatch import dataset, testdataset
 
-base_root = '/Users/zhangle/Documents/IS/coffee2docker/'
-# base_root = '/Users/zhangle/Documents/TableDetect/coffee2docker/model/'
+# base_root = '/Users/zhangle/Documents/IS/coffee2docker/'
+base_root = '/Users/zhangle/Documents/TableDetect/coffee2docker/'
 
 checkpoint_path = base_root + "model/cp.ckpt"
 
@@ -37,9 +37,13 @@ loss,acc = model.evaluate(testdataset, verbose=2)
 print("Restored model, accuracy: {:5.2f}%".format(100*acc))
 
 print('model predict')
-filename = 'IMG_0317.jpg'
-predict_data = open(base_root + 'traindata/' + filename, 'rb').read()
-model.predict(
-    predict_data, batch_size=None, verbose=0, steps=None, callbacks=None, max_queue_size=10,
-    workers=1, use_multiprocessing=False
+filename = 'IMG_0315.jpg'
+image = open(base_root + 'dataset/traindata/' + filename, 'rb').read()
+predict_data = tf.image.decode_jpeg(image)
+predict_data = tf.reshape(predict_data, [1,806,604,1])
+
+label = model.predict(
+  predict_data, batch_size=None, verbose=0, steps=None, callbacks=None, max_queue_size=10,
+  workers=1, use_multiprocessing=False
 )
+print(label)
