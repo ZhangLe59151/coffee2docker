@@ -1,5 +1,6 @@
 # images tfrecords
 dataset/images.tfrecords
+*.tfrecords
 
 # Package Files #
 dataset/__pycache__
