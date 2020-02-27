@@ -4,10 +4,10 @@ import sys
 sys.path.append('../')
 from dataset.generateBatch import dataset, testdataset
 
-base_root = '/Users/zhangle/Documents/IS/coffee2docker/model/'
+base_root = '/Users/zhangle/Documents/IS/coffee2docker/'
 # base_root = '/Users/zhangle/Documents/TableDetect/coffee2docker/model/'
 
-checkpoint_path = base_root + "cp.ckpt"
+checkpoint_path = base_root + "model/cp.ckpt"
 
 # evaluate
 
@@ -35,3 +35,11 @@ model.load_weights(checkpoint_path)
 
 loss,acc = model.evaluate(testdataset, verbose=2)
 print("Restored model, accuracy: {:5.2f}%".format(100*acc))
+
+print('model predict')
+filename = 'IMG_0317.jpg'
+predict_data = open(base_root + 'traindata/' + filename, 'rb').read()
+model.predict(
+    predict_data, batch_size=None, verbose=0, steps=None, callbacks=None, max_queue_size=10,
+    workers=1, use_multiprocessing=False
+)
