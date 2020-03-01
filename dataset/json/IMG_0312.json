@@ -1,0 +1,1 @@
+{"path":"/Users/zhangle/Documents/IS/coffee2docker/dataset/data/IMG_0312.jpg","outputs":{"object":[{"name":"clothes","bndbox":{"xmin":0,"ymin":276,"xmax":2736,"ymax":3084}}]},"time_labeled":1583076809743,"labeled":true,"size":{"width":3024,"height":4032,"depth":3}}
