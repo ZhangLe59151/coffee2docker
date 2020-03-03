@@ -11,9 +11,12 @@ base_path = os.getcwd()
 json_path = base_path + '/dataset/json/'
 file_name2 = 'traindata.csv'
 files = os.listdir(json_path)
+'''
 for item in files:
   with open(json_path + item, 'r') as f:
     temp = json.loads(f.read())
+    width = temp['size']['width']
+    height = temp['size']['height']
     label = temp['outputs']['object'][0]['name']
     xmin = temp['outputs']['object'][0]['bndbox']['xmin']
     ymin = temp['outputs']['object'][0]['bndbox']['ymin']
@@ -23,6 +26,7 @@ for item in files:
     my_open = open(base_path + '/dataset/csv/traindata.csv', 'a')
     my_open.write(path + ',' + str(xmin) + ',' + str(ymin) + ',' + str(xmax) + ',' + str(ymax) + ',' + label + '\n')
     my_open.close()
+'''
 
 def _bytes_feature(value):
   """Returns a bytes_list from a string / byte."""
@@ -48,7 +52,8 @@ def _int64_list_feature(value):
 
 def image_coco(
   image_string, 
-  label, height, 
+  label, 
+  height, 
   width, 
   num_objects, 
   filename, 
@@ -63,10 +68,10 @@ def image_coco(
     'image/height': _int64_feature(height),
     'image/width': _int64_feature(width),
     'image/num_objects': _int64_feature(num_objects),
-    'image/filename': _bytes_feature(filename),
-    'image/source_id': _bytes_feature(filename),
+    #'image/filename': _bytes_feature(filename),
+    #'image/source_id': _bytes_feature(filename),
     'image/encoded': _bytes_feature(image_string),
-    'image/format': _bytes_feature('jpeg'),
+    #'image/format': _bytes_feature('jpeg'),
     'image/object/bbox/xmin': _float_list_feature(xmin),
     'image/object/bbox/xmax': _float_list_feature(xmax),
     'image/object/bbox/ymin': _float_list_feature(ymin),
@@ -76,3 +81,35 @@ def image_coco(
   return tf.train.Example(features= tf.train.Features(feature = feature))
 
 
+record_file = base_path + '/dataset/coco.tfrecords'
+files = os.listdir(json_path)
+with tf.io.TFRecordWriter(record_file) as writer:
+  for item in files:
+    with open(json_path + item, 'r') as f:
+      temp = json.loads(f.read())
+      
+      if (temp['outputs']['object'][0]['name'] == "clothes"):
+        label = 0
+      else:
+        label = 1
+      xmin = temp['outputs']['object'][0]['bndbox']['xmin']
+      ymin = temp['outputs']['object'][0]['bndbox']['ymin']
+      xmax = temp['outputs']['object'][0]['bndbox']['xmax']
+      ymax = temp['outputs']['object'][0]['bndbox']['ymax']
+      path = temp['path']
+      width = temp['size']['width']
+      height = temp['size']['height']
+      num_objects = len(temp['outputs']['object'])
+      image_string = open(path, 'rb').read()
+      tf_example = image_coco(
+        image_string, 
+        [label], 
+        height, 
+        width, 
+        num_objects, 
+        item, 
+        [xmin],
+        [xmax],
+        [ymin],
+        [ymax])
+      writer.write(tf_example.SerializeToString())
