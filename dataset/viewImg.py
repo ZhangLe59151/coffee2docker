@@ -86,8 +86,7 @@ files = os.listdir(json_path)
 with tf.io.TFRecordWriter(record_file) as writer:
   for item in files:
     with open(json_path + item, 'r') as f:
-      temp = json.loads(f.read())
-      
+      temp = json.loads(f.read()) 
       if (temp['outputs']['object'][0]['name'] == "clothes"):
         label = 0
       else:
