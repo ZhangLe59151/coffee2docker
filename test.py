@@ -15,18 +15,24 @@ data = datasetUtil.read_json(filename)
 print(data['images'][1])
 
 images = []
-image = {
-  'license': 1,
-  'file_name': 'image_0.jpg',
-  'height': 100,
-  'width': 200,
-  'id': 0
-}
+filenamelist = datasetUtil.read_images_list(base_path+'/data/image')
+for item in filenamelist:
+  image = {
+    'license': 1,
+    'file_name': item,
+    'height': 100,
+    'width': 200,
+    'id': 0 }
+  images.append(image)
+
+
 
 cocofile = {
   'info': {},
   'licenses': [],
-  'images': [],
+  'images': images,
   'annotations': [],
   'categories': []
 }
+
+print(cocofile)
