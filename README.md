@@ -1,3 +1,18 @@
+# step 1 
+preprocessing data
+
+
+
+
+
+
+
+
+
+
+
+
+============== pls ignore things below ====================
 # coffee2docker
 build coffee2 docker image
 
@@ -13,3 +28,9 @@ python3 dataset/tfrecordCreate.py
 # run model and save weights
 cd model/
 python3 buildmodel.py
+
+- step4 Run the annotation tfrecords
+# run viewimg.py to generate tfrecords as well as annotation tag json file
+python3 dataset/viewImg.py
+
+

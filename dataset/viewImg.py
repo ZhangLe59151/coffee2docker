@@ -50,6 +50,18 @@ def _int64_list_feature(value):
   """Returns an int64_list from a bool / enum / int / uint."""
   return tf.train.Feature(int64_list=tf.train.Int64List(value=value))
 
+image_feature_description = {
+  'image/height': tf.io.FixedLenFeature([], tf.int64),
+  'image/width': tf.io.FixedLenFeature([], tf.int64),
+  'image/num_objects': tf.io.FixedLenFeature([], tf.int64),
+  'image/encoded': tf.io.FixedLenFeature([], tf.string),
+  'image/object/bbox/xmin': tf.io.FixedLenFeature([], tf.float32),
+  'image/object/bbox/xmax': tf.io.FixedLenFeature([], tf.float32),
+  'image/object/bbox/ymin': tf.io.FixedLenFeature([], tf.float32),
+  'image/object/bbox/ymax': tf.io.FixedLenFeature([], tf.float32),
+  'image/object/class/label': tf.io.FixedLenFeature([], tf.int64)
+}
+
 def image_coco(
   image_string, 
   label, 
@@ -83,6 +95,7 @@ def image_coco(
 
 record_file = base_path + '/dataset/coco.tfrecords'
 files = os.listdir(json_path)
+'''
 with tf.io.TFRecordWriter(record_file) as writer:
   for item in files:
     with open(json_path + item, 'r') as f:
@@ -112,3 +125,14 @@ with tf.io.TFRecordWriter(record_file) as writer:
         [ymin],
         [ymax])
       writer.write(tf_example.SerializeToString())
+
+'''
+
+def _parse_image_function(example_proto):
+  return tf.io.parse_single_example(example_proto, image_feature_description)
+
+# Print the Example Message to test
+raw_image_dataset = tf.data.TFRecordDataset(base_path + '/dataset/coco.tfrecords')
+parsed_image_dataset = raw_image_dataset.map(_parse_image_function)
+for image_features in parsed_image_dataset:
+  print(image_features['image/object/bbox/xmin'])

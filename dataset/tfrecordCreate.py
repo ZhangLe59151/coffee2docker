@@ -68,12 +68,6 @@ def image_example(image_string, label):
   }
   return tf.train.Example(features= tf.train.Features(feature = feature))
 
-'''
-# Print the Example Message to test
-for line in str(image_example(image_string, label)).split('\n')[:15]:
-  print(line)
-print('...')
-'''
 
 record_file = base_root + 'images.tfrecords'
 with tf.io.TFRecordWriter(record_file) as writer:
@@ -81,3 +75,5 @@ with tf.io.TFRecordWriter(record_file) as writer:
     image_string = open(base_root + 'traindata/' + filename, 'rb').read()
     tf_example = image_example(image_string, label)
     writer.write(tf_example.SerializeToString())
+
+
