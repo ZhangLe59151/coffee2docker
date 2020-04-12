@@ -38,7 +38,8 @@ for item in filenamelist:
     annotation = {
       'segmentation': [polygon],
       'category_id': id,
-      'image_id': item.replace('.json','.jpg')
+      'image_id': item.replace('.json','.jpg'),
+      'id': random.randint(0,1000)
     }
     annotations.append(annotation)
 
